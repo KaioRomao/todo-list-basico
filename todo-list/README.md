@@ -22,13 +22,16 @@
 - Simplificar o código repetitivo; OK
 
 ### API BackEnd Todo-List
-- SPRING
+- SPRING BOOT
+- JPA 
+- MODEL MAPPER
 - JAVA 11
 
 ### Rotas
 - BaseURL: /tasks
 - POST: create()
 - GET: getAll()
+- PUT: update()
 
 ### Model
 ```json

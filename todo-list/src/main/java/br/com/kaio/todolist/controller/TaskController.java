@@ -29,4 +29,34 @@ public class TaskController {
     public ResponseEntity<List<TaskDTO>> getAll() {
         return ResponseEntity.ok(service.getAll());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TaskDTO> getById(@PathVariable("id") Long id){
+        Optional<TaskDTO> response = service.getById(id);
+        if(response.isPresent()){
+            return  ResponseEntity.ok(response.get());
+        }
+        return ResponseEntity.notFound().build();
+        }
+
+        @DeleteMapping("/{id}")
+        public ResponseEntity<Boolean> delete(@PathVariable("id") Long id){
+            boolean delete = service.delete(id);
+            if(delete){
+                return ResponseEntity.ok(delete);
+            }
+            return ResponseEntity.notFound().build();
+        }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TaskDTO> update(@PathVariable("id") Long id, @RequestBody TaskDTO request) {
+        Optional<TaskDTO> response = service.update(id, request);
+
+        if (response.isPresent()) {
+            return ResponseEntity.ok(response.get());
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
 }
