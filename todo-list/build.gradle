@@ -25,11 +25,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.2.0'
+	//implementation 'org.apache.commons:commons-csv:1.8'
+	implementation group: 'com.opencsv', name: 'opencsv', version: '5.9'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	//sempre bom deixar o teste para baixo para ficar melhor visibibilidade (OBS: AEPNAS PERFUMARIA)
+	//sempre bom deixar o teste para baixo para ficar melhor visibibilidade (OBS: APENAS PERFUMARIA)
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 

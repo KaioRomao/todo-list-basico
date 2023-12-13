@@ -76,9 +76,9 @@ public class TaskServiceImpl implements TaskService {
         Optional<Task> task = repository.findById(id);
         if(task.isPresent()){
             Task taskAtt = task.get();
-            taskAtt.setTitle(request.getTitle());
-            taskAtt.setDescription(request.getDescription());
-            taskAtt.setStatus(request.isStatus());
+            request.setId(taskAtt.getId());
+
+            modelMapper.map(request, taskAtt);
             repository.saveAndFlush(taskAtt);
 
             TaskDTO response = modelMapper.map(taskAtt, TaskDTO.class);
@@ -90,6 +90,8 @@ public class TaskServiceImpl implements TaskService {
             return Optional.empty();
         }
     }
+
+
 
 
 }

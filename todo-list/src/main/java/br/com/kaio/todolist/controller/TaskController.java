@@ -1,12 +1,16 @@
 package br.com.kaio.todolist.controller;
 
+import br.com.kaio.todolist.Utils.CsvUtil;
 import br.com.kaio.todolist.dto.TaskDTO;
 import br.com.kaio.todolist.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,12 +43,12 @@ public class TaskController {
         return ResponseEntity.notFound().build();
         }
 
-        @DeleteMapping("/{id}")
-        public ResponseEntity<Boolean> delete(@PathVariable("id") Long id){
-            boolean delete = service.delete(id);
-            if(delete){
-                return ResponseEntity.ok(delete);
-            }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable("id") Long id){
+        boolean delete = service.delete(id);
+        if(delete){
+            return ResponseEntity.ok(delete);
+        }
             return ResponseEntity.notFound().build();
         }
 
@@ -57,6 +61,17 @@ public class TaskController {
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @GetMapping("/export")
+    public void exportCSV(HttpServletResponse response) throws IOException {
+        String filename = "todo-list.csv";
+        response.setContentType("text/csv");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + filename + "\"");
+        List<TaskDTO> task = service.getAll();
+        CsvUtil.csv(response.getWriter(), task );
+
     }
 
 }
